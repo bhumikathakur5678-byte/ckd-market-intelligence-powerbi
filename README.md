@@ -12,7 +12,7 @@ Interactive Power BI dashboard and market-sizing study built during my Summer In
 
 ![Project poster](assets/poster.png)
 
-![Methodology flow](assets/charts/methodology_flow.svg)
+
 
 ---
 
