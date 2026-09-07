@@ -1,0 +1,10 @@
+{
+  "name": "CKD Market Intelligence",
+  "dataColors": ["#1F3A93", "#2E7D32", "#E64A19", "#8E1B5B", "#9E9E9E", "#5B8DB8", "#2C1E5B"],
+  "background": "#FFFFFF",
+  "foreground": "#1F1F1F",
+  "tableAccent": "#6B1E4E",
+  "visualStyles": {
+    "*": { "*": { "title": [{ "fontColor": "#1F3A93", "fontSize": 12, "bold": true, "alignment": "center" }] } }
+  }
+}
