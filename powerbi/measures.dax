@@ -1,0 +1,91 @@
+// DAX measures for the Global CKD Market Intelligence report
+// Tables: Forecast, Region, DrugClass, TreatmentType, Channel, Company, KeyMetrics, Contributions
+// Create a table called "Measures" (Enter Data, one blank column) and add these to it.
+
+// ---- Forecast KPIs ----------------------------------------------------------
+
+Market Size 2025 (USD Bn) =
+CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), Forecast[Year] = 2025 )
+
+Market Size 2034 (USD Bn) =
+CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), Forecast[Year] = 2034 )
+
+Base Year Value =
+CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), Forecast[Year] = MIN ( Forecast[Year] ) )
+
+Final Year Value =
+CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), Forecast[Year] = MAX ( Forecast[Year] ) )
+
+Years In Range =
+MAX ( Forecast[Year] ) - MIN ( Forecast[Year] )
+
+CAGR =
+VAR _start = CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), ALL ( Forecast ), Forecast[Year] = 2025 )
+VAR _end   = CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), ALL ( Forecast ), Forecast[Year] = 2034 )
+RETURN
+    DIVIDE ( _end, _start ) ^ ( 1 / 9 ) - 1
+
+CAGR (selected range) =
+DIVIDE ( [Final Year Value], [Base Year Value] ) ^ DIVIDE ( 1, [Years In Range] ) - 1
+
+Absolute Growth 2025-2034 (USD Bn) =
+[Market Size 2034 (USD Bn)] - [Market Size 2025 (USD Bn)]
+
+YoY Growth % =
+VAR _cur  = SUM ( Forecast[Market_Size_USD_Bn] )
+VAR _year = MAX ( Forecast[Year] )
+VAR _prev = CALCULATE ( SUM ( Forecast[Market_Size_USD_Bn] ), ALL ( Forecast ), Forecast[Year] = _year - 1 )
+RETURN
+    DIVIDE ( _cur - _prev, _prev )
+
+// ---- Segment shares (all 2025) ---------------------------------------------
+
+Region Share % =
+DIVIDE ( SUM ( Region[Share_Pct] ), 100 )
+
+Region Value (USD Bn) =
+[Region Share %] * [Market Size 2025 (USD Bn)]
+
+Drug Class Share % =
+DIVIDE ( SUM ( DrugClass[Share_Pct] ), 100 )
+
+Drug Class Value (USD Bn) =
+[Drug Class Share %] * [Market Size 2025 (USD Bn)]
+
+Treatment Type Share % =
+DIVIDE ( SUM ( TreatmentType[Share_Pct] ), 100 )
+
+Channel Share % =
+DIVIDE ( SUM ( Channel[Share_Pct] ), 100 )
+
+Company Share % =
+DIVIDE ( SUM ( Company[Share_Pct] ), 100 )
+
+Top 4 Company Share % =
+CALCULATE ( [Company Share %], Company[Company] <> "Others" )
+
+// ---- Ranking and labels -----------------------------------------------------
+
+Region Rank =
+RANKX ( ALL ( Region ), CALCULATE ( SUM ( Region[Share_Pct] ) ), , DESC )
+
+Largest Region =
+CALCULATE ( SELECTEDVALUE ( Region[Region] ), TOPN ( 1, ALL ( Region ), Region[Share_Pct], DESC ) )
+
+Leading Drug Class =
+CALCULATE ( SELECTEDVALUE ( DrugClass[Drug_Class] ), TOPN ( 1, ALL ( DrugClass ), DrugClass[Share_Pct], DESC ) )
+
+Fastest Growing Region =
+CALCULATE ( SELECTEDVALUE ( Region[Region] ), Region[Growth_Flag] = "Fastest-growing region" )
+
+Fastest Growing Drug Class =
+CALCULATE ( SELECTEDVALUE ( DrugClass[Drug_Class] ), DrugClass[Growth_Flag] = "Fastest-growing drug class" )
+
+Market Size Card Label =
+"USD " & FORMAT ( [Market Size 2025 (USD Bn)], "0.0" ) & " Bn (2025) to USD "
+    & FORMAT ( [Market Size 2034 (USD Bn)], "0.0" ) & " Bn (2034)"
+
+// ---- SIP contributions ------------------------------------------------------
+
+Total Deliverables =
+SUM ( Contributions[Count] )
