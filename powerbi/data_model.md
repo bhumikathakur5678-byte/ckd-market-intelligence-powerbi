@@ -6,7 +6,7 @@ The report uses a flat model: one fact table per chart plus a measures table. Th
 
 | Table (Power BI name) | Source file | Grain | Columns |
 |---|---|---|---|
-| `Forecast` | `data/market_size_forecast.csv` | one row per year | Year (Whole number), Market_Size_USD_Bn (Decimal), Source_Note (Text) |
+| `Forecast` | `data/market_size_forecast.csv` | one row per year | Year (Whole number), Market_Size_USD_Bn (Decimal) |
 | `Region` | `data/market_share_by_region.csv` | one row per region | Region, Share_Pct, Market_Size_2025_USD_Bn, Growth_Flag |
 | `DrugClass` | `data/market_share_by_drug_class.csv` | one row per drug class | Drug_Class, Share_Pct, Market_Size_2025_USD_Bn, Growth_Flag |
 | `TreatmentType` | `data/market_share_by_treatment_type.csv` | one row per route | Treatment_Type, Share_Pct, Market_Size_2025_USD_Bn |
@@ -17,7 +17,7 @@ The report uses a flat model: one fact table per chart plus a measures table. Th
 | `Contributions` | `data/sip_contributions.csv` | one row per activity | Contribution, Count |
 | `Measures` | (Enter Data, blank) | n/a | holds the DAX in `measures.dax` |
 
-`Market_Size_2025_USD_Bn` in the segment tables is Share_Pct / 100 x 30.9 and is kept as a column so the CSVs are usable outside Power BI. Inside the report the equivalent measures (`Region Value (USD Bn)` etc.) recompute it.
+`Market_Size_2025_USD_Bn` in the segment tables is Share_Pct / 100 x 30.9. Inside the report the equivalent measures (`Region Value (USD Bn)` etc.) recompute it.
 
 ## Power Query steps (same for every CSV)
 
@@ -31,7 +31,7 @@ Optional: put the repo path in a parameter (`DataFolder`) and build each source 
 
 ## Visual mapping (page: Market Overview)
 
-| Poster chart | Visual | Axis / Legend | Values | Formatting |
+| Chart | Visual | Axis / Legend | Values | Formatting |
 |---|---|---|---|---|
 | Market Size Forecast (USD Billion) | Line chart | X: Forecast[Year] | Forecast[Market_Size_USD_Bn] | Data labels on, markers on, Y axis 0 to 80, category axis as categorical |
 | Market Share by Region (2025) | Clustered bar chart | Y: Region[Region] | [Region Share %] | Sort descending, data labels as %, X axis 0 to 40% |
@@ -63,7 +63,7 @@ Optional: put the repo path in a parameter (`DataFolder`) and build each source 
 
 ## Theme
 
-`theme.json` in this folder carries the poster palette. Import it via View > Themes > Browse for themes.
+`theme.json` in this folder carries the report palette. Import it via View > Themes > Browse for themes.
 
 - Primary bar / line: `#1F3A93`
 - Donut series: `#1F3A93`, `#2E7D32`, `#E64A19`, `#8E1B5B`, `#9E9E9E`

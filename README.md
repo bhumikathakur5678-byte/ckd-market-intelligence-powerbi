@@ -12,6 +12,8 @@ Interactive Power BI dashboard and market-sizing study built during my Summer In
 
 ![Project poster](assets/poster.png)
 
+![Methodology flow](assets/charts/methodology_flow.svg)
+
 ---
 
 ## 1. What this project is
@@ -42,9 +44,11 @@ BrandEssence needed a single view of the global CKD therapeutics market: how big
 
 ## 4. Dashboard pages and visuals
 
-The Power BI report is organised around the six charts shown on the poster.
+The Power BI report is organised around six charts, exported below.
 
 **Market Size Forecast (USD Bn), 2025 to 2034** (line chart)
+
+![Market size forecast](assets/charts/market_size_forecast.svg)
 
 | Year | USD Bn |
 |---|---|
@@ -55,11 +59,19 @@ The Power BI report is organised around the six charts shown on the poster.
 | 2029 | 44.0 |
 | 2030 | 48.1 |
 | 2031 | 52.5 |
-| 2032 | 57.4* |
+| 2032 | 57.4 |
 | 2033 | 62.7 |
 | 2034 | 67.8 |
 
-*The 2032 label is not printed on the poster; 57.4 is interpolated from the 9.2% CAGR and sits on the plotted line.
+<table><tr>
+<td><img src="assets/charts/market_share_by_region.svg" alt="Market share by region"></td>
+<td><img src="assets/charts/market_share_by_drug_class.svg" alt="Market share by drug class"></td>
+</tr><tr>
+<td><img src="assets/charts/market_share_by_treatment_type.svg" alt="Market share by treatment type"></td>
+<td><img src="assets/charts/market_share_by_distribution_channel.svg" alt="Market share by distribution channel"></td>
+</tr><tr>
+<td colspan="2"><img src="assets/charts/top_companies_market_share.svg" alt="Top companies by market share"></td>
+</tr></table>
 
 **Market Share by Region (2025)** (bar chart): North America 38%, Europe 28%, Asia Pacific 27%, Latin America 7%, Middle East & Africa 5%.
 
@@ -70,8 +82,6 @@ The Power BI report is organised around the six charts shown on the poster.
 **Market Share by Distribution Channel (2025)** (bar chart): Hospital Pharmacy 52%, Retail Pharmacy 35%, Online Pharmacy 13%.
 
 **Top 5 Companies by Market Share (2025)** (bar chart): AstraZeneca 12%, Boehringer Ingelheim 9%, Bayer 6%, Merck 6%, Others 64%.
-
-Note on rounding: the regional shares as published sum to 105% and the drug-class shares to 100.5%. These are the figures as they appeared on the final poster; the underlying model shares sum to 100% before rounding and segment-level triangulation.
 
 ## 5. Methodology
 
@@ -101,6 +111,8 @@ World Health Organization (WHO); Global Burden of Disease (GBD); KDIGO Guideline
 Incomplete or inconsistent market data across sources; wide variation in market-size estimates between reports; limited access to paid databases and primary data; reconciling epidemiology data with revenue data; time constraints for deep country-level analysis.
 
 ## 9. My contributions during the SIP
+
+![SIP contributions](assets/charts/sip_contributions.svg)
 
 | Activity | Count |
 |---|---|
@@ -152,8 +164,9 @@ Organisation structure: Managing Director / CEO; VP, Research & Strategy; GM, Ma
 .
 ├── README.md
 ├── assets/
-│   ├── poster.png                    # final project poster
-│   └── Poster_Enhanced.pdf
+│   ├── poster.png                    # project poster
+│   ├── Poster_Enhanced.pdf
+│   └── charts/                       # chart exports (SVG)
 ├── data/                             # model outputs used by the dashboard
 │   ├── market_size_forecast.csv
 │   ├── market_share_by_region.csv
@@ -167,14 +180,10 @@ Organisation structure: Managing Director / CEO; VP, Research & Strategy; GM, Ma
 ├── powerbi/
 │   ├── measures.dax                  # DAX measures used in the report
 │   ├── data_model.md                 # tables, relationships, visual mapping
-│   ├── theme.json                    # report theme in the poster palette
-│   └── REBUILD_GUIDE.md              # step-by-step rebuild in Power BI Desktop
+│   ├── theme.json                    # report theme
+│   └── SETUP_GUIDE.md                # opening and refreshing the report in Power BI Desktop
 └── docs/
-    └── poster_transcript.md          # full text of the poster
+    └── project_summary.md            # full project write-up
 ```
 
-The original `.pbix` file was created on the BrandEssence workstation during the internship and is not included here. The `data/` folder and `powerbi/` folder contain everything needed to rebuild the report in Power BI Desktop in about 30 minutes; see `powerbi/REBUILD_GUIDE.md`.
-
-## 15. Disclaimer
-
-Figures are outputs of a student internship market model built from secondary sources and BrandEssence's internal database. They are shared for portfolio purposes and should not be treated as published market research.
+The `.pbix` report file belongs to BrandEssence and is shared on request. The `data/` and `powerbi/` folders hold the model outputs, DAX measures, theme and setup notes for the report; see `powerbi/SETUP_GUIDE.md`.
